@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <span>My App</span>
+  <span class="example-spacer"></span>
+  <button mat-fab extended  color="accent" *ngIf="isLogged" (click)="signInOut()" aria-label="Example icon-button with heart icon">
+    <mat-icon> logout </mat-icon>
+    Logout
+  </button>
+
+  <button  mat-fab extended  color="accent" *ngIf="!isLogged" (click)="signInOut()" aria-label="Example icon-button with heart icon">
+    <mat-icon> login </mat-icon>
+    Login
+  </button>
+
+</mat-toolbar>
+
+
