@@ -1,16 +1,24 @@
 <mat-toolbar color="primary">
   <span>My App</span>
   <span class="example-spacer"></span>
-  <button mat-fab extended  color="accent" *ngIf="isLogged" (click)="signInOut()" aria-label="Example icon-button with heart icon">
+  <button mat-fab extended  color="accent" *ngIf="user" (click)="signOut()" aria-label="Example icon-button with heart icon">
     <mat-icon> logout </mat-icon>
     Logout
   </button>
 
-  <button  mat-fab extended  color="accent" *ngIf="!isLogged" (click)="signInOut()" aria-label="Example icon-button with heart icon">
+  <button  mat-fab extended  color="accent" *ngIf="!user" (click)="signIn()" aria-label="Example icon-button with heart icon">
     <mat-icon> login </mat-icon>
     Login
   </button>
-
 </mat-toolbar>
+
+  <div *ngIf="user" class="user-info">
+    <img class="user-img" src="{{user.photoURL}}" alt="">
+    <div class="user-data">
+      <span>{{user.displayName}}</span>
+      <span>{{user.email}}</span>
+    </div>
+  </div>
+
 
 

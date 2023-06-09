@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -9,28 +9,26 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnDestroy{
-  isLogged:boolean=false;
-  users:Subject<User[]| null> = new Subject();
+export class HeaderComponent implements OnInit{
+  user?: User;
 
 
-  constructor(public auth:AuthService) {
-    console.log('isLogged: ', this.isLogged);
+  constructor(private auth:AuthService) {
   }
 
-  ngOnDestroy(): void {
-    this.auth.signOut();
+  ngOnInit(): void {
+    this.auth.userSubject.subscribe({
+      next: user => this.user = user as User,
+      error: err => console.log(err),
+
+    })
   }
 
-  signInOut(){
-    if(!this.isLogged){
+  signIn(){
       this.auth.signIn()
-    }
-    else{
+  }
+
+  signOut(){
       this.auth.signOut();
     }
-    this.isLogged = !this.isLogged;
-    console.log(this.isLogged);
-
-  }
 }
